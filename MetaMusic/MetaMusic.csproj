@@ -39,6 +39,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Common\AuthCredentials.cs" />
+    <Compile Include="API\Common\ImageInfo.cs" />
+    <Compile Include="API\Common\ImageInfoSizes.cs" />
+    <Compile Include="API\Common\ImageSize.cs" />
+    <Compile Include="API\Discogs\DiscogsAgent.cs" />
+    <Compile Include="API\Discogs\DiscogsAlbum.cs" />
+    <Compile Include="API\Discogs\DiscogsAlbumArtist.cs" />
+    <Compile Include="API\Discogs\DiscogsArtist.cs" />
+    <Compile Include="API\Discogs\DiscogsArtistMembers.cs" />
+    <Compile Include="API\Discogs\DiscogsAuth.cs" />
+    <Compile Include="API\Discogs\DiscogsTrack.cs" />
     <Compile Include="API\LastFm\LastFmSearchAlbumResult.cs" />
     <Compile Include="API\LastFm\LastFmSearchTrackResult.cs" />
     <Compile Include="Helpers\Algorithms.cs" />
@@ -56,8 +67,6 @@
     <Compile Include="Domain\AlbumInfo.cs" />
     <Compile Include="Domain\ArtistInfo.cs" />
     <Compile Include="Domain\ArtistMember.cs" />
-    <Compile Include="Domain\ImageInfo.cs" />
-    <Compile Include="Domain\ImageInfoSizes.cs" />
     <Compile Include="Domain\Release.cs" />
     <Compile Include="Domain\ReleaseSource.cs" />
     <Compile Include="Domain\TrackInfo.cs" />

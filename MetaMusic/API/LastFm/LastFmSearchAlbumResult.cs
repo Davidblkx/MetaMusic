@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MetaMusic.API.Common;
 using MetaMusic.Domain;
 
 namespace MetaMusic.API.LastFm

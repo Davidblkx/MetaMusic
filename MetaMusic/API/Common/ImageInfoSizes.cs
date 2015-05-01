@@ -1,5 +1,5 @@
 ﻿
-namespace MetaMusic.Domain
+namespace MetaMusic.API.Common
 {
     /// <summary>
     /// Image size

@@ -4,6 +4,7 @@ using MetaMusic.Helpers;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MetaMusic.API.Common;
 using MetaMusic.Domain;
 using Newtonsoft.Json.Linq;
 
@@ -58,7 +59,7 @@ namespace MetaMusic.API.LastFm
 
                     art.Images.Add(new ImageInfo
                     {
-                        ImageInfoSize = size,
+                        Size = new ImageSize(size),
                         Link = img.Value<string>("#text"),
                     });
                 }

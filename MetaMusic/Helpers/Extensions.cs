@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace MetaMusic.Helpers
@@ -17,7 +13,6 @@ namespace MetaMusic.Helpers
         /// <summary>
         /// Gets property value
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="token"></param>
         /// <param name="propName">Property</param>
         /// <returns></returns>
@@ -31,6 +26,36 @@ namespace MetaMusic.Helpers
             {
                 return "Undefined";
             }
+        }
+
+        /// <summary>
+        /// Remove the 'THE' from the end string and add it to beggin
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string FixDiscogsName(this string value)
+        {
+            const string mark = ", the";
+
+            if (!value.EndsWith(mark, StringComparison.CurrentCultureIgnoreCase)) return value;
+
+            value = value.Substring(0, value.Length - mark.Length);
+            value = "The " + value;
+
+            return value;
+        }
+
+        public static int ToInt(this string value, bool throwException = false)
+        {
+            int num;
+
+            if (int.TryParse(value, out num))
+                return num;
+
+            if(throwException)
+                throw new InvalidOperationException("Cannot parse to int");
+
+            return -1;
         }
     }
 }

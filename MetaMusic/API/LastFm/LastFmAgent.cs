@@ -1,33 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using MetaMusic.Domain;
+using MetaMusic.API.Common;
 using MetaMusic.Helpers;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MetaMusic.API.LastFm
 {
     public class LastFmAgent
     {
-        private readonly AuthLastFm _auth;
-        private const string Domain = @"http://ws.audioscrobbler.com/2.0/";
+        public readonly string Domain = @"http://ws.audioscrobbler.com/2.0/";
+        private readonly string _credentials;
 
-        public LastFmAgent(AuthLastFm authLastFm)
+        public LastFmAgent(AuthCredentials auth)
         {
-            if(authLastFm == null)
-                throw new ArgumentNullException("authLastFm");
+            if(auth == null)
+                throw new ArgumentNullException("auth");
 
-            _auth = authLastFm;
+            _credentials = string.Format("api_key={0}", auth.ApiKey);
         }
 
         public async Task<LastFmArtist> GetArtistbyMbid(string mbid)
         {
-            string args = string.Format("?method=artist.getinfo&mbid={0}&api_key={1}&format=json", mbid, _auth.ApiKey);
+            string args = string.Format("?method=artist.getinfo&mbid={0}&{1}&format=json", mbid, _credentials);
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -48,7 +44,7 @@ namespace MetaMusic.API.LastFm
         }
         public async Task<LastFmAlbum> GetAlbumByMbid(string mbid)
         {
-            string args = string.Format("?method=album.getinfo&mbid={0}&api_key={1}&format=json", mbid, _auth.ApiKey);
+            string args = string.Format("?method=album.getinfo&mbid={0}&{1}&format=json", mbid, _credentials);
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -69,7 +65,7 @@ namespace MetaMusic.API.LastFm
         }
         public async Task<LastFmTrack> GetTrackByMbid(string mbid)
         {
-            string args = string.Format("?method=track.getInfo&mbid={0}&api_key={1}&format=json", mbid, _auth.ApiKey);
+            string args = string.Format("?method=track.getInfo&mbid={0}&{1}&format=json", mbid, _credentials);
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -91,7 +87,7 @@ namespace MetaMusic.API.LastFm
 
         public async Task<IList<LastFmSearchArtistResult>> SearchArtist(string artistName)
         {
-            string args = string.Format("?method=artist.search&artist={0}&api_key={1}&format=json", artistName, _auth.ApiKey);
+            string args = string.Format("?method=artist.search&artist={0}&{1}&format=json", artistName, _credentials);
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -112,7 +108,7 @@ namespace MetaMusic.API.LastFm
         }
         public async Task<IList<LastFmSearchAlbumResult>> SearchAlbum(string albumName)
         {
-            string args = string.Format("?method=album.search&album={0}&api_key={1}&format=json", albumName, _auth.ApiKey);
+            string args = string.Format("?method=album.search&album={0}&{1}&format=json", albumName, _credentials);
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -133,8 +129,8 @@ namespace MetaMusic.API.LastFm
         }
         public async Task<IList<LastFmSearchTrackResult>> SearchTrack(string trackTitle, string trackArtist)
         {
-            string args = string.Format("?method=track.search&track={0}&artist={1}&api_key={2}&format=json", 
-                trackTitle, trackArtist, _auth.ApiKey);
+            string args = string.Format("?method=track.search&track={0}&artist={1}&{2}&format=json", 
+                trackTitle, trackArtist, _credentials);
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -164,11 +160,11 @@ namespace MetaMusic.API.LastFm
                 List<ImageInfo> images = new List<ImageInfo>();
                 foreach (var img in artist["image"])
                 {
-                    ImageInfoSizes size = ImageInfoSizes.Small;
+                    ImageInfoSizes size;
                     Enum.TryParse(img["size"].ToString(), true, out size);
                     images.Add(new ImageInfo
                     {
-                        ImageInfoSize = size,
+                        Size = new ImageSize(size),
                         Link = img["#text"].ToString()
                     });
                 }
@@ -195,11 +191,11 @@ namespace MetaMusic.API.LastFm
                 List<ImageInfo> images = new List<ImageInfo>();
                 foreach (var img in alb["image"])
                 {
-                    ImageInfoSizes size = ImageInfoSizes.Small;
+                    ImageInfoSizes size;
                     Enum.TryParse(img["size"].ToString(), true, out size);
                     images.Add(new ImageInfo
                     {
-                        ImageInfoSize = size,
+                        Size = new ImageSize(size),
                         Link = img["#text"].ToString()
                     });
                 }
@@ -235,5 +231,7 @@ namespace MetaMusic.API.LastFm
 
             return tracks;
         }
+
+
     }
 }

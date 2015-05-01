@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using MetaMusic.Domain;
 
-namespace MetaMusic.Domain
+namespace MetaMusic.API.Common
 {
     /// <summary>
     /// Info from image
@@ -14,10 +15,7 @@ namespace MetaMusic.Domain
         /// Url of image
         /// </summary>
         public string Link { get; set; }
-        /// <summary>
-        /// Get image size
-        /// </summary>
-        public ImageInfoSizes ImageInfoSize { get; set; }
+        public ImageSize Size { get; set; }
 
         /// <summary>
         /// Download image from web and returns stream content

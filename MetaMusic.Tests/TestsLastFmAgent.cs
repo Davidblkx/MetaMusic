@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MetaMusic.API.LastFm;
+using MetaMusic.Tests.Private;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MetaMusic.Tests
@@ -11,11 +12,7 @@ namespace MetaMusic.Tests
         [TestMethod]
         public async Task LastFmAgentGetArtistByMbid()
         {
-            LastFmAgent agent = new LastFmAgent(new AuthLastFm
-            {
-                ApiKey = Private.Secret.LastFmKey,
-                ApiSecret = "NULL"
-            });
+            LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
             LastFmArtist art = await agent.GetArtistbyMbid("83d91898-7763-47d7-b03b-b92132375c47");
             LastFmApiExceptionArgs error = null;
@@ -43,11 +40,7 @@ namespace MetaMusic.Tests
              * Wish you were here
              */
 
-            LastFmAgent agent = new LastFmAgent(new AuthLastFm
-            {
-                ApiKey = Private.Secret.LastFmKey,
-                ApiSecret = "NULL"
-            });
+            LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
             LastFmAlbum album = await agent.GetAlbumByMbid("de10209f-2bff-4c01-8ad6-6825ecbfb44b");
             LastFmApiExceptionArgs error = null;
@@ -76,11 +69,7 @@ namespace MetaMusic.Tests
              * Brain Damages
              */
 
-            LastFmAgent agent = new LastFmAgent(new AuthLastFm
-            {
-                ApiKey = Private.Secret.LastFmKey,
-                ApiSecret = "NULL"
-            });
+            LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
             LastFmTrack track = await agent.GetTrackByMbid("5b57aa2a-6a8c-473b-a5d6-f9b58ed251f7");
             LastFmApiExceptionArgs error = null;
@@ -104,11 +93,7 @@ namespace MetaMusic.Tests
         [TestMethod]
         public async Task LastFmSearchArtist()
         {
-            LastFmAgent agent = new LastFmAgent(new AuthLastFm
-            {
-                ApiKey = Private.Secret.LastFmKey,
-                ApiSecret = "NULL"
-            });
+            LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
             var result = await agent.SearchArtist("Pink Floyd");
 
@@ -120,11 +105,7 @@ namespace MetaMusic.Tests
         [TestMethod]
         public async Task LastFmSearchAlbum()
         {
-            LastFmAgent agent = new LastFmAgent(new AuthLastFm
-            {
-                ApiKey = Private.Secret.LastFmKey,
-                ApiSecret = "NULL"
-            });
+            LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
             var result = await agent.SearchAlbum("Dark side of the moon");
 
@@ -136,11 +117,7 @@ namespace MetaMusic.Tests
         [TestMethod]
         public async Task LastFmSearchTracks()
         {
-            LastFmAgent agent = new LastFmAgent(new AuthLastFm
-            {
-                ApiKey = Private.Secret.LastFmKey,
-                ApiSecret = "NULL"
-            });
+            LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
             var result = await agent.SearchTrack("Brain Damage", "Pink Floyd");
 

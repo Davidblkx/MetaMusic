@@ -53,6 +53,7 @@
     <Compile Include="TestsLastFmAgent.cs" />
     <Compile Include="Private\Secret.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDiscogsAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetaMusic\MetaMusic.csproj">
