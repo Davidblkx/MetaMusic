@@ -49,6 +49,9 @@
     <Compile Include="API\Discogs\DiscogsArtist.cs" />
     <Compile Include="API\Discogs\DiscogsArtistMembers.cs" />
     <Compile Include="API\Discogs\DiscogsAuth.cs" />
+    <Compile Include="API\Discogs\DiscogsReleaseVersion.cs" />
+    <Compile Include="API\Discogs\DiscogsSearchAlbumResult.cs" />
+    <Compile Include="API\Discogs\DiscogsSearchArtistResult.cs" />
     <Compile Include="API\Discogs\DiscogsTrack.cs" />
     <Compile Include="API\LastFm\LastFmSearchAlbumResult.cs" />
     <Compile Include="API\LastFm\LastFmSearchTrackResult.cs" />

@@ -10,6 +10,12 @@ namespace MetaMusic.API.Discogs
     {
         public string Name { get; set; }
         public string Id { get; set; }
+        public string MasterId { get; set; }
+
+        public bool IsMaster
+        {
+            get { return Id == MasterId; }
+        }
 
         public IList<DiscogsAlbumArtist> Artists { get; set; }
         public IList<DiscogsTrack> TrackList { get; set; }
@@ -60,6 +66,9 @@ namespace MetaMusic.API.Discogs
                     Size = new ImageSize(img.GetStringValue("width").ToInt(), img.GetStringValue("height").ToInt())
                 });
             }
+
+            //Check if master release
+            album.MasterId = jData.HasProperty("master_id") ? jData.GetStringValue("master_id") : album.Id;
 
             return album;
         }
