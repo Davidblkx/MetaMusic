@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MetaMusic.API.LastFm;
 using MetaMusic.Tests.Private;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,13 +35,13 @@ namespace MetaMusic.Tests
         public async Task LastFmAgentGetAlbumByMbid()
         {
             /*
-             * MBID:de10209f-2bff-4c01-8ad6-6825ecbfb44b
-             * Wish you were here
+             * MBID:5daf013f-25fd-3275-a9a6-e7101ff0efe9
+             * Master of reality
              */
 
             LastFmAgent agent = new LastFmAgent(Secret.LastFmAuth);
 
-            LastFmAlbum album = await agent.GetAlbumByMbid("de10209f-2bff-4c01-8ad6-6825ecbfb44b");
+            LastFmAlbum album = await agent.GetAlbumByMbid("5daf013f-25fd-3275-a9a6-e7101ff0efe9");
             LastFmApiExceptionArgs error = null;
 
             try
@@ -57,8 +56,8 @@ namespace MetaMusic.Tests
             Assert.IsNotNull(error, "error not raised");
             Assert.IsNotNull(album, "wrongly initiated");
 
-            Assert.AreEqual("Wish You Were Here", album.Title);
-            Assert.AreEqual("Pink Floyd", album.Artist);
+            Assert.AreEqual("Master of Reality", album.Title);
+            Assert.AreEqual("Black Sabbath", album.Artist);
         }
 
         [TestMethod]
