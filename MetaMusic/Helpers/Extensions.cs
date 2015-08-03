@@ -45,6 +45,12 @@ namespace MetaMusic.Helpers
             return value;
         }
 
+        /// <summary>
+        /// Convert string to int
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="throwException"></param>
+        /// <returns></returns>
         public static int ToInt(this string value, bool throwException = false)
         {
             int num;

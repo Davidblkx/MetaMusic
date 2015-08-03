@@ -10,9 +10,19 @@ namespace MetaMusic.API.LastFm
 {
     public class LastFmAgent
     {
+        /// <summary>
+        /// Lastfm API 2.0 Domain URL
+        /// </summary>
         public readonly string Domain = @"http://ws.audioscrobbler.com/2.0/";
+        /// <summary>
+        /// User Credential in string format
+        /// </summary>
         private readonly string _credentials;
 
+        /// <summary>
+        /// Default Constructor 
+        /// </summary>
+        /// <param name="auth">Auth Credentials for last.fm</param>
         public LastFmAgent(AuthCredentials auth)
         {
             if(auth == null)
@@ -21,6 +31,11 @@ namespace MetaMusic.API.LastFm
             _credentials = string.Format("api_key={0}", auth.ApiKey);
         }
 
+        /// <summary>
+        /// Get artist by MusicBrainz ID (Avoid using this)
+        /// </summary>
+        /// <param name="mbid">MusicBrainz ID</param>
+        /// <returns></returns>
         public async Task<LastFmArtist> GetArtistbyMbid(string mbid)
         {
             string args = string.Format("?method=artist.getinfo&mbid={0}&{1}&format=json", mbid, _credentials);
@@ -42,6 +57,11 @@ namespace MetaMusic.API.LastFm
             LastFmArtist art = LastFmArtist.Parse(json);
             return art;
         }
+        /// <summary>
+        /// Get album by MusicBrainz ID (Avoid using this)
+        /// </summary>
+        /// <param name="mbid">MusicBrainz ID</param>
+        /// <returns></returns>
         public async Task<LastFmAlbum> GetAlbumByMbid(string mbid)
         {
             string args = string.Format("?method=album.getinfo&mbid={0}&{1}&format=json", mbid, _credentials);
@@ -63,6 +83,11 @@ namespace MetaMusic.API.LastFm
             LastFmAlbum album = LastFmAlbum.Parse(json);
             return album;
         }
+        /// <summary>
+        /// Get Track by MusicBrainz ID (Avoid using this)
+        /// </summary>
+        /// <param name="mbid">MusicBrainz ID</param>
+        /// <returns></returns>
         public async Task<LastFmTrack> GetTrackByMbid(string mbid)
         {
             string args = string.Format("?method=track.getInfo&mbid={0}&{1}&format=json", mbid, _credentials);
@@ -85,9 +110,10 @@ namespace MetaMusic.API.LastFm
             return album;
         }
 
+
         public async Task<IList<LastFmSearchArtistResult>> SearchArtist(string artistName)
         {
-            string args = string.Format("?method=artist.search&artist={0}&{1}&format=json", artistName, _credentials);
+            string args = $"?method=artist.search&artist={artistName}&{_credentials}&format=json";
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -108,7 +134,7 @@ namespace MetaMusic.API.LastFm
         }
         public async Task<IList<LastFmSearchAlbumResult>> SearchAlbum(string albumName)
         {
-            string args = string.Format("?method=album.search&album={0}&{1}&format=json", albumName, _credentials);
+            string args = $"?method=album.search&album={albumName}&{_credentials}&format=json";
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();
@@ -129,8 +155,7 @@ namespace MetaMusic.API.LastFm
         }
         public async Task<IList<LastFmSearchTrackResult>> SearchTrack(string trackTitle, string trackArtist)
         {
-            string args = string.Format("?method=track.search&track={0}&artist={1}&{2}&format=json", 
-                trackTitle, trackArtist, _credentials);
+            string args = $"?method=track.search&track={trackTitle}&artist={trackArtist}&{_credentials}&format=json";
             Uri url = new Uri(Domain + args);
 
             HttpClient webClient = new HttpClient();

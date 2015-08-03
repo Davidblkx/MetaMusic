@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MetaMusic.API.Discogs;
@@ -32,6 +33,18 @@ namespace MetaMusic.Tests
 
             DiscogsAlbum album = await agent.GetAlbumById(AlbumId);
             Assert.IsNotNull(album, "DiscogsAlbum is null");
+        }
+
+        [TestMethod]
+        public async Task DiscogsSearchArtist()
+        {
+            var agent = new DiscogsAgent(Secret.DiscogsAuth);
+            Assert.IsNotNull(agent, "Discogs agent is null");
+
+            var results = await agent.SearchArtist("white stripes");
+
+            Assert.IsNotNull(results, "Result object is null");
+            Assert.IsTrue(results.Count > 0, "None result was returned");
         }
     }
 }

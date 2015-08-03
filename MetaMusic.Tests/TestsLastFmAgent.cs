@@ -97,7 +97,7 @@ namespace MetaMusic.Tests
 
             var result = await agent.SearchArtist("Pink Floyd");
 
-            Assert.IsNotNull(agent, "LastFM agent os Null");
+            Assert.IsNotNull(agent, "LastFM agent is Null");
             Assert.IsNotNull(result, "Search result is Null");
             Assert.IsTrue(result.Count == 30, "Item count invalid");
         }
